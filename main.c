@@ -1,141 +1,129 @@
-#include "main.h"
-/**
- * exercise_5 - Determines wich number is greater.
- */
-void exercise_5()
+#include <iostream>
+
+using namespace std;
+
+int contar_caracteres(char *st)
 {
-	int a = 0;
-	int b = 0;
-	int c = 0;
+    int count = 0;
+    int i = 0;
 
-	printf("\nIngrese tres numeros:\n\n");
-	printf("Cantidad a: ");
-	scanf("%d", &a);
-	printf("\nCantidad b: ");
-	scanf("%d", &b);
-	printf("\nCantidad c: ");
-	scanf("%d", &c);
-
-	if (a >= b && a >= c)
-		printf("\nEl número mayor es: %d\n\n", a);
-	else if (b >= a && b >= c)
-		printf("\nEl número mayor es: %d\n\n", b);
-	else if (c >= a && c >= b)
-		printf("\nEl número mayor es: %d\n\n", c);
+    while (st[i] != '\0')
+    {
+        count++;
+        i++;
+    }
+    return count;
 }
-/**
- * exercise_6 - Determines the cost of a feast.
- */
-void exercise_6()
+int contar_palabra(char *st)
 {
-	int amount = 0;
+    int count = 1;
+    int i = 0;
 
-	while (1)
-	{
-		printf("\nIngrese el número de personas que asistiran al evento: ");
-		scanf("%d", &amount);
+    for (i = 0; st[i] != '\0'; i++)
+    {
+        if (st[i] == ' ' && st[i + 1] != ' ')
+            count++;
+    }    
 
-		if (amount < 0)
-		{
-			printf("\nIngrese un valor valido.\n");
-			amount = 0;
-			continue;
-		}
-		if (amount <= 200)
-		{
-			printf("\nEl valor de cada platillo es de $9500 y el costo total será de: $%d\n\n", amount * 9500);
-			return;
-		}
-		else if (amount <= 300)
-		{
-			printf("\nEl valor de cada platillo es de $8500 y el costo total será de: $%d\n\n", amount * 8500);
-			return;
-		}
-		else
-		{
-			printf("\nEl valor de cada platillo es de $7500 y el costo total será de: $%d\n\n", amount * 7500);
-			return;
-		}
-	}
+    return count;
 }
-/**
- * exercise_7 - Determines the revenue of a grape seller.
- */
-void exercise_7()
+int buscar_palabra(char *st, char *palabra)
 {
-	int initial_price = 0;
-	int size = 0;
-	int final_price = 0;
-	char type = '\0';
-	
-	printf("\nIngrese el precio inicial: ");
-	scanf("%d", &initial_price);
+    int i = 0;
+    int j = 0;
+    int count = 0;
 
-	while ((type != 'A' && type != 'B') || type == '\0')
-	{
-		printf("\nIngrese el tipo(A o B): ");
-		scanf(" %c", &type);
+    while (st[i] != '\0')
+    {
+        if (st[i] == palabra[j])
+        {
+            while (st[i] == palabra[j] && palabra[j] != '\0')
+            {
+                i++;
+                j++;
+            }
+            if (palabra[j] == '\0' && (st[i] == ' ' || st[i] == '\0'))
+            {
+                count += 1;
+                j =  0;
+            }
+        }
+        i++;
+    }
 
-		if ((type != 'A' && type != 'B') || type == '\0')
-			printf("\nIngrese un tipo válido(A o B)\n");
-		else
-			break;
-	}
-
-	while ((size != 1 && size != 2) || size == 0)
-	{
-		printf("\nIngrese el tamaño(1 o 2): ");
-		scanf("%d", &size);
-
-		if ((size != 1 && size != 2) || size == 0)
-			printf("\nIngrese un tamaño válido(1 o 2)\n");
-		else
-			break;
-	}
-
-	if (type == 'A' && size == 1)
-		final_price = initial_price + 200;
-	else if (type == 'A' && size == 2)
-		final_price = initial_price + 300;
-	else if (type == 'B' && size == 1)
-		final_price = initial_price - 300;
-	else if (type == 'B' && size == 2)
-		final_price = initial_price - 500;
-
-	printf("\nLa ganancia total es de: %d\n\n", final_price);
-
+    return count;
 }
-/**
- * main - Multiple exercises related to conditionals.
- *
- * Return: 0 on exit.
- */
-int main()
+void borrar_arreglo(char *ar)
 {
-	int exercise = 0;
-	int available[] = {5, 6, 7, 8};
-	
+    int i = 0;
 
-	while (exercise != 8)
-	{
-		printf("A continuación seleccione el ejercicio que desea evaluar:\n");
-		printf("5: Ejercicio 5\n");
-		printf("6: Ejercicio 6\n");
-		printf("7: Ejercicio 7\n");
-		printf("8: Salir\n");
+    while (ar[i] != '\0')
+    {
+        ar[i] = '\0';
+        i++;
+    }
+}
+void contar_char_palabra(char *st)
+{
+    int i = 0;
+    int count = 0;
 
-		printf("Seleccione: ");
-		scanf("%d", &exercise);
+    while (st[i] != '\0')
+    {
 
-		if (in_array(available, exercise, 4) == 0)
-			printf("\nIngrese un valor valido\n\n");
-		else if (exercise == 5)
-			exercise_5();
-		else if (exercise == 6)
-			exercise_6();
-		else if (exercise == 7)
-			exercise_7();
-	}
+        if (st[i] == ' ')
+        {
+            printf(" = %d\n", count);
+            count = 0;
+        }
+        else if (st[i] >= 'a' && st[i] <= 'z' || st[i] >= 'A' && st[i] <= 'Z')
+        {
+            printf("%c", st[i]);
+            count++;
+        }
+        i++;
+    }
+    printf(" = %d\n", count);
+}
+void caracteres_esp_alfa(char *st)
+{
+    int i = 0;
+    int count_esp = 0;
+    int count_alfa = 0;
 
-	return 0;
+    while (st[i] != '\0')
+    {
+        if (st[i] >= 'a' && st[i] <= 'z' || st[i] >= 'A' && st[i] <= 'Z')
+            count_alfa++;
+        else
+            count_esp++;
+        i++;
+    }
+    printf("El numero de caracteres especiales es: %d y el numero de caracteres alfabeticos es: %d\n", count_esp, count_alfa);
+}
+int main ()
+{
+    char texto[100];
+    char palabra[100];
+    int output = 0;
+
+    printf("Ingrese un texto: \n");
+    scanf("%[^\n]", &texto);
+    printf("El numero de caracteres es: %d\n", contar_caracteres(texto));
+
+    printf("El numero de palabras es: %d\n", contar_palabra(texto));
+
+    printf("Indique que palabra desea buscar: ");
+    scanf("%s", &palabra);
+
+    output = buscar_palabra(texto, palabra);
+    if (output == 0)
+        printf("No existe esa palabra en el texto\n");
+    else
+        printf("La palabra %s se encuentra %d veces en el texto\n", palabra, output);
+
+    contar_char_palabra(texto);
+    caracteres_esp_alfa(texto);
+
+    return 0;
 }
